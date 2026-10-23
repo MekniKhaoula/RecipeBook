@@ -1,1 +1,66 @@
-<p>recipe-form works!</p>
+<div class="recipe-form-container">
+    <h2>Add a recipe</h2>
+  
+    <p *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </p>
+     
+    <p *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }} 
+    </p>
+    
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder=".."
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Describe your recipe"
+        ></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="ingredients">Ingredients</label>
+        <textarea
+          id="ingredients"
+          formControlName="ingredients"
+          placeholder="Ex. Salt, Tomato, ..."
+        ></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="preparationTime">Préperation time(minutes)</label>
+        <input
+          id="preparationTime"
+          type="number"
+          formControlName="preparationTime"
+          min="0"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="cookingTime">Cooking time(minutes)</label>
+        <input
+          id="cookingTime"
+          type="number"
+          formControlName="cookingTime"
+          min="0"
+        />
+      </div>
+  
+      <button type="submit" [disabled]="recipeForm.invalid">
+        Add new recipe
+      </button>
+    </form>
+  </div>
+  

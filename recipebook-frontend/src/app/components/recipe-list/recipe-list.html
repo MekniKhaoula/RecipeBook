@@ -1,20 +1,97 @@
 
-<h2>Mes recettes</h2>
+<h2>My Recipes</h2>
 
 <p *ngIf="errorMessage" class="error">
   {{ errorMessage }}
 </p>
 
 <p *ngIf="!errorMessage && recipes.length === 0">
-  Aucune recette disponible.
+  No recipes available.
 </p>
 
 <div class="recipe-list">
   <div class="recipe-card" *ngFor="let recipe of recipes">
-    <h3>{{ recipe.title }}</h3>
-    <p>{{ recipe.description }}</p>
-    <p><strong>Ingrédients :</strong> {{ recipe.ingredients }}</p>
-    <p><strong>Préparation :</strong> {{ recipe.preparationTime }} min</p>
-    <p><strong>Cuisson :</strong> {{ recipe.cookingTime }} min</p>
+
+    <!-- Edit mode -->
+    <ng-container
+      *ngIf="selectedRecipe?.id === recipe.id; else viewMode">
+
+      <label>Title</label>
+      <input
+        type="text"
+        [value]="selectedRecipe?.title || ''"
+        (input)="onTextInput('title', $event)"
+      />
+
+      <label>Description</label>
+      <textarea
+        [value]="selectedRecipe?.description || ''"
+        (input)="onTextInput('description', $event)"
+      ></textarea>
+
+      <label>Ingredients</label>
+      <textarea
+        [value]="selectedRecipe?.ingredients || ''"
+        (input)="onTextInput('ingredients', $event)"
+      ></textarea>
+
+      <label>Preparation Time (min)</label>
+      <input
+        type="number"
+        min="0"
+        [value]="selectedRecipe?.preparationTime ?? 0"
+        (input)="onNumberInput('preparationTime', $event)"
+      />
+
+      <label>Cooking Time (min)</label>
+      <input
+        type="number"
+        min="0"
+        [value]="selectedRecipe?.cookingTime ?? 0"
+        (input)="onNumberInput('cookingTime', $event)"
+      />
+
+      <button type="button" (click)="saveRecipe()">
+        Save Changes
+      </button>
+
+      <button type="button" (click)="cancelEdit()">
+        Cancel
+      </button>
+
+    </ng-container>
+
+    <!-- Normal display mode -->
+    <ng-template #viewMode>
+      <h3
+        (click)="editRecipe(recipe)"
+        title="Click to edit this recipe">
+        {{ recipe.title }}
+      </h3>
+
+      <p>{{ recipe.description }}</p>
+
+      <p>
+        <strong>Ingredients:</strong>
+        {{ recipe.ingredients }}
+      </p>
+
+      <p>
+        <strong>Preparation Time:</strong>
+        {{ recipe.preparationTime }} min
+      </p>
+
+      <p>
+        <strong>Cooking Time:</strong>
+        {{ recipe.cookingTime }} min
+      </p>
+
+      <button
+        type="button"
+        (click)="deleteRecipe(recipe)">
+        Delete
+      </button>
+    </ng-template>
+
   </div>
 </div>
