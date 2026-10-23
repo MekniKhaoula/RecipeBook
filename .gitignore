@@ -1,0 +1,29 @@
+
+# Java / Spring Boot / Maven
+**/target/
+*.class
+*.log
+
+# Angular / Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+npm-debug.log*
+
+# IDE
+**/.idea/
+**/.vscode/
+**/.settings/
+**/.project
+**/.classpath
+**/.factorypath
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration locaux ou secrets
+.env
+.env.*
+application-local.properties
+application-local.yml

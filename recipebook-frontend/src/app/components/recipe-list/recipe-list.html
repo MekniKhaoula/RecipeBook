@@ -1,0 +1,20 @@
+
+<h2>Mes recettes</h2>
+
+<p *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</p>
+
+<p *ngIf="!errorMessage && recipes.length === 0">
+  Aucune recette disponible.
+</p>
+
+<div class="recipe-list">
+  <div class="recipe-card" *ngFor="let recipe of recipes">
+    <h3>{{ recipe.title }}</h3>
+    <p>{{ recipe.description }}</p>
+    <p><strong>Ingrédients :</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Préparation :</strong> {{ recipe.preparationTime }} min</p>
+    <p><strong>Cuisson :</strong> {{ recipe.cookingTime }} min</p>
+  </div>
+</div>
